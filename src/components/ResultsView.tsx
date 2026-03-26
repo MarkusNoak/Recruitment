@@ -267,26 +267,89 @@ export default function ResultsView({ report, formData, onReset }: ResultsViewPr
         </div>
       </section>
 
-      {/* Footer / CTA */}
-      <div className="card p-6 text-center no-print">
-        <h3 className="text-lg font-bold text-slate-800 mb-2">
-          Ready to start automating?
-        </h3>
-        <p className="text-sm text-slate-500 mb-4 max-w-md mx-auto">
-          You now have a clear picture of your automation potential. Download your report and share it with your team to start planning your next steps.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <button onClick={handlePrint} className="btn-primary">
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            Download PDF Report
-          </button>
-          <button onClick={onReset} className="btn-secondary">
-            Run another audit
-          </button>
+      {/* Booking CTA */}
+      <BookingCTA score={report.score} onPrint={handlePrint} onReset={onReset} />
+    </div>
+  )
+}
+
+// ─── Booking CTA ──────────────────────────────────────────────────────────────
+
+function BookingCTA({
+  score,
+  onPrint,
+  onReset,
+}: {
+  score: number
+  onPrint: () => void
+  onReset: () => void
+}) {
+  const bookingUrl = process.env.NEXT_PUBLIC_BOOKING_URL ?? '#'
+
+  const urgency =
+    score >= 70
+      ? 'Your business is primed for automation. Let\'s turn this roadmap into results.'
+      : score >= 40
+      ? 'You have clear opportunities waiting to be unlocked. A focused sprint can change the game.'
+      : 'There\'s significant untapped potential here. The right starting point makes all the difference.'
+
+  return (
+    <div className="no-print space-y-3">
+      {/* Primary booking block */}
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 to-indigo-700 p-8 text-white">
+        {/* Decorative circles */}
+        <div className="pointer-events-none absolute -top-8 -right-8 h-40 w-40 rounded-full bg-white/5" />
+        <div className="pointer-events-none absolute -bottom-12 -left-8 h-56 w-56 rounded-full bg-white/5" />
+
+        <div className="relative">
+          <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-3 py-1 text-xs font-semibold text-indigo-100 mb-4">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Free strategy session available
+          </div>
+
+          <h3 className="text-2xl font-bold mb-2 leading-snug">
+            Want expert help implementing this?
+          </h3>
+          <p className="text-indigo-200 text-sm leading-relaxed mb-6 max-w-lg">
+            {urgency} Book a free 30-minute strategy call and we&apos;ll walk you through the highest-impact steps for your business — no sales pitch, just practical advice.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <a
+              href={bookingUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center justify-center gap-2 rounded-lg bg-white px-6 py-3 text-sm font-semibold text-indigo-700 hover:bg-indigo-50 transition-colors shadow-sm"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              Book Free Strategy Call
+            </a>
+            <button
+              onClick={onPrint}
+              className="inline-flex items-center justify-center gap-2 rounded-lg border border-white/30 bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/20 transition-colors"
+            >
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Download PDF Report
+            </button>
+          </div>
+
+          <p className="mt-4 text-xs text-indigo-300">
+            30 minutes &middot; No commitment &middot; Tailored to your audit results
+          </p>
         </div>
+      </div>
+
+      {/* Secondary action */}
+      <div className="text-center">
+        <button onClick={onReset} className="text-xs text-slate-400 hover:text-slate-600 transition-colors underline underline-offset-2">
+          Run another audit
+        </button>
       </div>
     </div>
   )
