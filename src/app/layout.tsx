@@ -2,33 +2,24 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'AI Automation Audit — Discover Your Potential',
-  description:
-    'Get a personalized AI automation analysis for your business in minutes. Identify your biggest opportunities, estimate ROI, and receive a custom implementation roadmap.',
+  title: 'AI Sales Toolkit — 29 Prompts for Closers',
+  description: 'A ready-to-use library of AI prompts covering prospecting, cold outreach, follow-ups, objection handling, proposals, LinkedIn, and lead qualification.',
   openGraph: {
-    title: 'AI Automation Audit — Discover Your Potential',
-    description:
-      'Free AI-powered audit that reveals your top automation opportunities and estimated annual savings.',
+    title: 'AI Sales Toolkit — 29 Prompts for Closers',
+    description: 'Fill in the brackets, copy, paste into any AI. Close more deals.',
     type: 'website',
   },
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="h-full">
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
       </head>
-      <body className="font-sans">{children}</body>
+      <body className="h-full">{children}</body>
     </html>
   )
 }
